@@ -1,5 +1,4 @@
-Nilify
-======
+=Nilify
 
 Nilify is an ActiveRecord Plugin that allows you to easily convert default values to nil.
 Only attributes you specify will be checked and converted. 
@@ -10,25 +9,21 @@ Default values are:
   Numeric:  0
   Time:     1970-01-01 00:00:00
 
-Installation
-============
+==Installation
 
   script/plugin install git://github.com/grobie/nilify.git
 
-Example
-=======
+==Example
 
   class User < ActiveRecord::Base
     nilify :name, :salary, :birthday
   end
   
   user = User.create(:name => "", :salary => 0, :birthday => Time.parse("1970-01-01"))
-  
   user.name       # => nil
   user.salary     # => nil
   user.birthday   # => nil
 
-License
-=======
+==License
 
 Copyright (c) 2009 Tobias Schmidt, released under the MIT license
