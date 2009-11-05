@@ -7,6 +7,7 @@ module Grobie
     
     module ClassMethods
       def nilify(*attributes)
+        return if attributes.empty?
         return if self.included_modules.include?(Nilify::InstanceMethods)
         
         include Nilify::InstanceMethods

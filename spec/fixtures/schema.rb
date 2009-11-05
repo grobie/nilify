@@ -7,4 +7,8 @@ ActiveRecord::Schema.define do
     t.column  :birthday,      :datetime
   end
   
+  create_table :posts, :force => true do |t|
+    t.column  :name,          :string
+  end
+  
 end
