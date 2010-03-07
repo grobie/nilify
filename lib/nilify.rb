@@ -11,11 +11,13 @@ module Grobie
 
         unless self.included_modules.include?(Nilify::InstanceMethods)
           include Nilify::InstanceMethods
+          write_inheritable_attribute :nilify_attributes, []
           class_inheritable_reader :nilify_attributes
         end
 
-        columns = self.content_columns.select { |c| attributes.map { |a| a.to_sym }.include?(c.name.to_sym) }
-        write_inheritable_array :nilify_attributes, columns.map { |a| a.name.to_sym }
+        attributes = attributes.map(&:to_sym)
+        columns = self.content_columns.map { |c| c.name.to_sym }.select { |c| attributes.include?(c) }
+        write_inheritable_array :nilify_attributes, columns
 
         class_eval "before_validation :nilify"
       end
