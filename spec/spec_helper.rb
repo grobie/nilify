@@ -11,3 +11,5 @@ ActiveRecord::Base.establish_connection :adapter => 'sqlite3', :database  => ':m
 ActiveRecord::Migration.verbose = false
 require File.dirname(__FILE__) + '/fixtures/schema'
 require File.dirname(__FILE__) + '/fixtures/user'
+require File.dirname(__FILE__) + '/fixtures/specialized_user'
+require File.dirname(__FILE__) + '/fixtures/category'
