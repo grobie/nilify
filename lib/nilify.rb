@@ -8,6 +8,7 @@ module Grobie
     module ClassMethods
       def nilify(*attributes)
         return if attributes.empty?
+        return false unless table_exists?
 
         unless self.included_modules.include?(Nilify::InstanceMethods)
           include Nilify::InstanceMethods
@@ -16,12 +17,10 @@ module Grobie
         end
 
         attributes = attributes.map(&:to_sym)
-        columns = self.content_columns.map { |c| c.name.to_sym }.select { |c| attributes.include?(c) }
+        columns = content_columns.map { |c| c.name.to_sym }.select { |c| attributes.include?(c) }
         write_inheritable_array :nilify_attributes, columns
 
         class_eval "before_validation :nilify"
-      rescue ActiveRecord::StatementInvalid => error
-        Rails.logger.warn(error.message)
       end
     end
 
