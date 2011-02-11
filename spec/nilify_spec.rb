@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 
 describe Grobie::Nilify do
 
-  it "should add class method to activerecord" do
+  it "should add a class method to activerecord" do
     User.methods.should include("nilify")
   end
 
@@ -12,6 +12,10 @@ describe Grobie::Nilify do
 
   it "should bequest nilifiing attributes" do
     SpecializedUser.nilify_attributes.should == [:name, :salary, :birthday]
+  end
+
+  it "should not raise an exception for a non existing table" do
+    expect { require "fixtures/no_table" }.to_not raise_error(ActiveRecord::StatementInvalid)
   end
 
   describe "when nilifiing possible attributes" do

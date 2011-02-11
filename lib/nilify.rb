@@ -20,6 +20,8 @@ module Grobie
         write_inheritable_array :nilify_attributes, columns
 
         class_eval "before_validation :nilify"
+      rescue ActiveRecord::StatementInvalid => error
+        Rails.logger.warn(error.message)
       end
     end
 
